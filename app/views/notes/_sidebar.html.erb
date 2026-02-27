@@ -1,0 +1,10 @@
+<aside class="flex w-64 bg-amber-200 flex-col">
+  <h2 class="text-lg font-bold p-4">Notes</h2>
+  <ul class="flex-1 overflow-y-auto">
+    <% notes.each do |note| %>
+      <li class="p-2 hover:bg-amber-300">
+        <%= link_to note.title, note_path(note), class: "block" %>
+      </li>
+    <% end %>
+  </ul>
+</aside>

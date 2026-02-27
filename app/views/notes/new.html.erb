@@ -1,10 +1,1 @@
-<h1>NEW NOTE</h1>
-<%= form_with model: @note do |form| %>
-        <%= form.label :title, "Title:" %>
-        <%= form.text_field :title %>
-   
-        <%= form.label :content, "Content:" %>
-        <%= form.rich_textarea :content %>
-    
-        <%= form.submit "Create Note" %>
-<% end %>
+<%= render "form", note: @note %>

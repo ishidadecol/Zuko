@@ -1,12 +1,11 @@
 class NotesController < ApplicationController
+  before_action :set_note, only: %i[ show edit update destroy ]
+
+  # MARK: GET /
   # MARK: GET /notes
   def index
-    @notes = Note.all
-  end
-
-  # MARK: GET /notes/:id
-  def show
-    @note = Note.find(params[:id])
+    @notes = Note.order(updated_at: :desc)
+    @note = Note.find_by(id: params[:id])
   end
 
   # MARK: GET /notes/new
@@ -18,35 +17,36 @@ class NotesController < ApplicationController
   def create
     @note = Note.new(note_params)
     if @note.save
-      redirect_to @note, notice: "Note was successfully created."
+      redirect_to url_for(controller: :notes, action: :index, id: @note.id), notice: "Note was successfully created."
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
   # MARK: GET /notes/:id/edit
   def edit
-    @note = Note.find(params[:id])
   end
 
   # MARK: PATCH/PUT /notes/:id
   def update
-    @note = Note.find(params[:id])
     if @note.update(note_params)
-      redirect_to @note, notice: "Note was successfully updated."
+      redirect_to url_for(controller: :notes, action: :index, id: @note.id), notice: "Note was successfully updated."
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
   # MARK: DELETE /notes/:id
   def destroy
-    @note = Note.find(params[:id])
     @note.destroy
-    redirect_to notes_path, notice: "Note was successfully deleted."
+    redirect_to url_for(controller: :notes, action: :index), notice: "Note was successfully deleted."
   end
 
   private
+
+  def set_note
+    @note = Note.find(params[:id])
+  end
 
   # MARK: Strong parameters
   def note_params

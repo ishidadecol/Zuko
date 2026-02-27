@@ -1,10 +1,12 @@
-<h1><%=@note.title%></h1>
-<%= form_with model: @note do |form| %>
-        <%= form.label :title, "Title:" %>
-        <%= form.text_field :title %>
-   
-        <%= form.label :content, "Content:" %>
-        <%= form.rich_textarea :content %>
-    
-        <%= form.submit "Create Note" %>
+<%= turbo_frame_tag "note_content" do %>
+  <div class="container mx-auto px-4 py-8">
+    <h1 class=" text-gray-600  mb-2">Edit Note:</h1>
+
+    <%= render "form", note: @note %>
+
+    <div class="mt-6 flex space-x-4">
+      <%# This link will now go back to displaying the note content in the same frame %>
+      <%= link_to "Cancel", url_for(controller: :notes, action: :index, id: @note.id), data: { turbo_frame: "note_content" }, class: "text-blue-500 hover:underline" %>
+    </div>
+  </div>
 <% end %>

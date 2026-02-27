@@ -1,0 +1,36 @@
+/* Toolbar container */
+trix-toolbar {
+  border: black 1px solid !important;
+  display: flex;
+  align-items: center;  
+  background: transparent !important;
+  padding: 5px 5px;
+}
+
+/* Button groups */
+.trix-button-group {
+  border: none !important;
+  background: transparent !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Buttons */
+.trix-button {
+  border: none !important;
+  background: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.trix-button-row {
+  align-items: center;
+}
+
+trix-editor {
+  border: 1px solid black;
+  border-top: none;
+  border-radius: 0 0 0px 0px; /* rounded bottom only */
+  padding: 16px;
+  min-height: 50vh;
+}

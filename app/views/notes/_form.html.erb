@@ -1,0 +1,35 @@
+<%= turbo_frame_tag "note_content" do %> <%# Wrap the form in the same turbo frame %>
+  <%= form_with model: note, data: { turbo_frame: "_top" }, class: "space-y-6" do |form| %>
+    <% if note.errors.any? %>
+      <div id="error_explanation" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+        <p class="font-bold">
+          <%= I18n.t("errors.messages.not_saved",
+                      count: note.errors.count,
+                      resource: note.class.model_name.human.downcase)
+          %>
+        </p>
+        <ul class="mt-2 list-disc list-inside">
+          <% note.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.text_field :title,
+            placeholder: "Title",
+            class: "w-full text-3xl font-semibold border-none focus:ring-0" %>
+    </div>
+
+    <div>
+      <%= form.rich_textarea :content,
+            class: "prose max-w-none min-h-[300px] focus:outline-none" %>
+    </div>
+
+    <div class="flex justify-end">
+      <%= form.submit note.new_record? ? "Create Note" : "Update Note",
+            class: "bg-zinc-900 text-white px-6 py-2 rounded-md hover:bg-zinc-800" %>
+    </div>
+  <% end %>
+<% end %>
